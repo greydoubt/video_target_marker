@@ -1,0 +1,29 @@
+This Dockerfile uses the official Python 3.8 slim image as the base image. It sets the working directory to /app, copies the requirements.txt file to the image, and installs the required packages using pip.
+
+The code is then copied to the image, and the entrypoint is set to run the main.py script using Python 3.
+
+To build the Docker image, save the code above as Dockerfile in a new directory and run the following command from the same directory:
+
+docker build -t my-image .
+
+
+
+This will build a new Docker image with the tag my-image.
+
+To run the Docker image, you can use the following command:
+
+docker run --mount type=bind,source="$(pwd)",target=/app/files my-image input_video.mp4 output_video.mp4
+
+
+
+This command mounts the current working directory to /app/files in the container and runs the my-image image with the input video file input_video.mp4 and output video file output_video.mp4 as arguments.
+
+
+
+The requirements.txt file includes two packages:
+
+opencv-python-headless: the headless version of OpenCV, which does not require a graphical user interface and includes the necessary modules for computer vision.
+
+numpy: a library for numerical computing, which is used by OpenCV for array manipulation.
+
+You can save this requirements.txt file in the same directory as the Dockerfile and include it in the build process by copying it to the image using the COPY command in the Dockerfile.
